@@ -1,0 +1,8 @@
+export enum BookCategory {
+  COMIC = 'COMIC',
+  FANTASY = 'FANTASY',
+  ACTION = 'ACTION',
+  THRILLER = 'THRILLER',
+  CONTEMPORARY = 'CONTEMPORARY',
+  GENERAL = 'GENERAL',
+}
