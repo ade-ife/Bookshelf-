@@ -107,7 +107,9 @@ export class BooksService {
         { search: `%${search}%` },
       );
     }
+    query.orderBy('book.updatedAt', 'ASC').limit(3);
     const books = await query.getMany();
+
     return books;
   }
 }

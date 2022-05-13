@@ -8,6 +8,7 @@ import {
   Patch,
   Post,
   Query,
+  UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -21,6 +22,7 @@ import { BookCategoryValidationPipe } from './pipes/book-category-validation.pip
 
 import { BookResponseInterface } from './types/bookResponse.interface';
 import { GetBooksFilterDto } from './dto/get-books-filter.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('books')
 export class BooksController {
@@ -36,6 +38,7 @@ export class BooksController {
   //   }
 
   @Post()
+  @UseGuards(AuthGuard())
   async create(
     @Body('book') createBookDto: CreateBookDto,
   ): Promise<BookResponseInterface> {
@@ -52,11 +55,13 @@ export class BooksController {
   }
 
   @Delete(':slug')
+  @UseGuards(AuthGuard())
   async deleteBook(@Param('slug') slug: string) {
     return await this.booksService.deleteBook(slug);
   }
 
   @Patch('/status/:slug')
+  @UseGuards(AuthGuard())
   updateBookStatus(
     @Param('slug') slug: string,
     @Body('status', BookStatusValidationPipe) status: BookStatus,
@@ -65,6 +70,7 @@ export class BooksController {
   }
 
   @Patch('/category/:slug')
+  @UseGuards(AuthGuard())
   updateBookCategory(
     @Param('slug') slug: string,
     @Body('bookCategory', BookCategoryValidationPipe)
