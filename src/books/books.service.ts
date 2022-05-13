@@ -98,7 +98,10 @@ export class BooksService {
     }
 
     if (search) {
-      query.andWhere;
+      query.andWhere(
+        '(book.title LIKE :search OR book.description LIKE :search)',
+        { search: `%${search}%` },
+      );
     }
     const books = await query.getMany();
     return books;
