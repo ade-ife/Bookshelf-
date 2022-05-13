@@ -90,11 +90,15 @@ export class BooksService {
   }
 
   async getBooks(filterDto: GetBooksFilterDto): Promise<Books[]> {
-    const { status, search } = filterDto;
+    const { status, bookCategory, search } = filterDto;
     const query = this.bkrepo.createQueryBuilder('book');
 
     if (status) {
       query.andWhere('book.status = :status', { status });
+    }
+
+    if (bookCategory) {
+      query.andWhere('book.bookCategory =:bookCategory', { bookCategory });
     }
 
     if (search) {
